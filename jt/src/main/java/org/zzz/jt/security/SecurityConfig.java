@@ -19,7 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.zzz.jt.data.User;
 import org.zzz.jt.data.UserService;
+import org.zzz.jt.data.UserWithDetails;
 import org.zzz.jt.repository.UserRepository;
 
 @EnableWebSecurity
@@ -35,15 +37,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JwtTokenFilter jwtTokenFilter;
 
-	
+	/*
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 				
-		auth.userDetailsService(username -> userRepo
+		auth.userDetailsService(username ->  userRepo
 			      .getByName(username)
 			      .orElseThrow(
 			        () -> new UsernameNotFoundException(
 			          String.format("User: %s, not found", username))));
+		
+		//auth.
+	}
+	*/
+	
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+				
+		auth.userDetailsService(username ->  
+			{User u = userRepo.getByName(username)
+			      .orElseThrow(
+			        () -> new UsernameNotFoundException(
+			          String.format("User: %s, not found", username)));
+			    return new UserWithDetails(u);
+			}
+			);
 		
 		//auth.
 	}
@@ -72,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Set permissions on endpoints
         http.authorizeRequests()
         	.antMatchers("/users/signin").permitAll()//
-        	
+        	.antMatchers("/users/signin1").permitAll()//
         	.antMatchers("/login").permitAll()//
         	.antMatchers("/hello/user").permitAll()//
         	

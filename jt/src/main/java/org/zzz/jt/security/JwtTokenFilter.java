@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.zzz.jt.data.User;
+import org.zzz.jt.data.UserWithDetails;
 import org.zzz.jt.repository.UserRepository;
 
 @Component
@@ -54,8 +56,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			return;
 		}
 
-		// Get user identity and set it on the spring security context
-		UserDetails userDetails = userRepo.getByName(jwtTokenUtil.getUsername(token)).orElse(null);
+		
+		User user = userRepo.getByName(jwtTokenUtil.getUsername(token)) .orElse(null);
+		
+		UserDetails userDetails = new UserWithDetails(user);
 
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
 				userDetails == null ? List.of() : userDetails.getAuthorities());

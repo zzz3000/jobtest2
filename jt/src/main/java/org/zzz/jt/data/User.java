@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails{
+public class User { // implements UserDetails
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,39 +85,7 @@ public class User implements UserDetails{
 		this.emails = emails;
 	}
 	
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.getName();
-	}
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		GrantedAuthority authority = new SimpleGrantedAuthority("user");
-		List<GrantedAuthority> auths = new ArrayList();
-		auths.add(authority);
-		return auths;
-	}
-	
-	@Override
-	public boolean isAccountNonLocked() {		
-		return true;
-	}
-	
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
 
 	public Account getAccount() {
 		return account;
@@ -150,6 +118,11 @@ public class User implements UserDetails{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", password=" + password + "]";
 	}
 	
 	

@@ -1,7 +1,6 @@
 package org.zzz.jt;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +10,6 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,8 +22,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.zzz.jt.security.JwtTokenFilter;
 
 @Disabled
@@ -37,7 +35,7 @@ public String host = "http://localhost:8080";
 		
 	}
 	
-	//@Test
+	@Test
 	@Disabled
 	public void run() {
 		try {
@@ -90,7 +88,7 @@ public String host = "http://localhost:8080";
 			}
 		    
 		   // response.getEntity().
-		    assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+		   // assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
 		    client.close();
 		    
 		    String token = response.getFirstHeader("Authorization").getValue();
