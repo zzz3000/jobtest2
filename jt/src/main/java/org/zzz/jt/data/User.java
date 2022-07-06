@@ -42,6 +42,11 @@ public class User { // implements UserDetails
 	@Cascade({CascadeType.ALL})
     private Set<UserEmail> emails;
 	
+	@OneToMany(mappedBy="user")
+	@Cascade({CascadeType.ALL})
+    private Set<UserPhone> phones;
+	
+	
 	@OneToOne(mappedBy="user")
     private Account account;
 
@@ -86,6 +91,14 @@ public class User { // implements UserDetails
 	}
 	
 	
+
+	public Set<UserPhone> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<UserPhone> phones) {
+		this.phones = phones;
+	}
 
 	public Account getAccount() {
 		return account;
