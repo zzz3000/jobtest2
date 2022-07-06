@@ -16,11 +16,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.zzz.jt.data.UserRepository;
+import org.zzz.jt.repository.UserRepository;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
+	public static final String AUTH_HEADER ="Authorization";
 	
 	private final JwtTokenUtil jwtTokenUtil;
 
@@ -39,7 +40,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		// Get authorization header and validate
 
 		// TODO
-		final String header = request.getHeader("Authorization");
+		final String header = request.getHeader(AUTH_HEADER);
 
 		if (StringUtils.isEmpty(header) || !header.startsWith("Bearer ")) {
 			chain.doFilter(request, response);

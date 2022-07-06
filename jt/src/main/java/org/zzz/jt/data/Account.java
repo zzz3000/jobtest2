@@ -1,5 +1,7 @@
 package org.zzz.jt.data;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,33 +9,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "email_data")
-public class UserEmail {
-
+@Table(name = "account")
+public class Account {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	Integer id;	
+	Integer id;
+
 	
-	
-	
-	@Column(name = "email")
-	String email;	
-	
-	
-	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	User user;
 	
-	
-	
+	@Column(name = "balance")
+	BigDecimal balance;
 
 	public Integer getId() {
 		return id;
@@ -43,14 +37,6 @@ public class UserEmail {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -58,6 +44,15 @@ public class UserEmail {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+	
 	
 	
 }

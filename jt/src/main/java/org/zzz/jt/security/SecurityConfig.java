@@ -14,12 +14,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.zzz.jt.data.UserRepository;
 import org.zzz.jt.data.UserService;
+import org.zzz.jt.repository.UserRepository;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -82,10 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()
             // Our private endpoints
-            .anyRequest().authenticated();
+            .anyRequest().authenticated()
         
         
-            //.and().httpBasic();
+            .and().httpBasic();
         
         
         
@@ -115,6 +116,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+       // return new BCryptPasswordEncoder();
+    	return  NoOpPasswordEncoder.getInstance();
     }
 }
