@@ -1,10 +1,7 @@
 package org.zzz.jt.data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +13,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User { // implements UserDetails
 
 	@Id
@@ -33,7 +27,7 @@ public class User { // implements UserDetails
 	String name;
 	
 	@Column(name = "date_of_birth")
-	String dateOfBirth;
+	Date dateOfBirth;
 	
 	@Column(name = "password")
 	String password;
@@ -66,11 +60,13 @@ public class User { // implements UserDetails
 		this.name = name;
 	}
 
-	public String getDateOfBirth() {
+	
+
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

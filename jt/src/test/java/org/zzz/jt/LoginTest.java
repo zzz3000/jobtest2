@@ -1,13 +1,5 @@
 package org.zzz.jt;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
@@ -21,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.zzz.jt.security.JwtTokenFilter;
@@ -91,7 +82,7 @@ public String host = "http://localhost:8080";
 		   // assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
 		    client.close();
 		    
-		    String token = response.getFirstHeader("Authorization").getValue();
+		    String token = response.getFirstHeader(JwtTokenFilter.AUTH_HEADER).getValue();
 		    
 		    /*
 			String href1 = host +"/users/createEmail";//?username=sanek&password=12345";

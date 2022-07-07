@@ -56,8 +56,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			return;
 		}
 
+		User user = userRepo.getById(jwtTokenUtil.getUsername(token));
 		
-		User user = userRepo.getByName(jwtTokenUtil.getUsername(token)) .orElse(null);
+		//User user = userRepo.getByName(jwtTokenUtil.getUsername(token)) .orElse(null);
 		
 		UserDetails userDetails = new UserWithDetails(user);
 

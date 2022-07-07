@@ -55,10 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 				
 		auth.userDetailsService(username ->  
-			{User u = userRepo.getByName(username)
-			      .orElseThrow(
-			        () -> new UsernameNotFoundException(
-			          String.format("User: %s, not found", username)));
+			{User u = userRepo.getById(Integer.parseInt(username));
+				if(u==null) {
+					throw new UsernameNotFoundException(
+					          String.format("User: %s, not found", username));
+				}
+			    
 			    return new UserWithDetails(u);
 			}
 			);

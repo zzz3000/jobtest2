@@ -1,8 +1,9 @@
 package org.zzz.jt;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zzz.jt.data.User;
 import org.zzz.jt.data.UserService;
+import org.zzz.jt.security.JwtTokenFilter;
 
 @RestController
 @RequestMapping("/users")
@@ -31,10 +33,10 @@ public class UserController {
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		System.out.println(request.getContentType());
+		//System.out.println(request.getContentType());
 		String token =  userService.signin(username, password);
 		
-		response.addHeader("Authorization", token);
+		response.addHeader(JwtTokenFilter.AUTH_HEADER, token);
 		
 		return token;
 	}
@@ -47,6 +49,7 @@ public class UserController {
 		String password = (String) payload.get("password");
 
 		String token = userService.signin(username, password);
+		
 		return token;
 		// response.addHeader("Authorization", token);
 
@@ -81,8 +84,17 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/find")
-	public List<User> findByName(String name){
-		return userService.findByName(name);
+	public List<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize){
+		Date birthD = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+			birthD = sdf.parse(birthDate);
+		}catch (Exception e) {
+			//TODO
+		}
+		
+		return userService.findByParams(name, email, phone, birthD, pageNum, pageSize);
+		
 	}
 
 }

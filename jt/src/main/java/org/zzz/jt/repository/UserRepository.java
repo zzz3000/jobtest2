@@ -1,5 +1,6 @@
 package org.zzz.jt.repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,13 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 			" (:inputString is null or e.projectLocation like %:inputString%)"
 	)*/
     //JOIN u.emails email
-    @Query(value = "SELECT u FROM User u  LEFT JOIN u.emails email where  (:userName is null or u.name like :userName%) and (:emailF is null or u.name=:emailF)")
-	Page<User> findPageByParams(@Param("userName")  String userName,@Param("emailF")  String emailF, Pageable pageable);
+    @Query(value = "SELECT DISTINCT u FROM User u  LEFT JOIN u.emails email LEFT JOIN u.phones phone "
+    		+ "where  (:userName is null or u.name like :userName%) "
+    		+ "and (:emailF is null or email.email=:emailF) "
+    		+ "and ( cast(:birthParam as date) is null or u.dateOfBirth > :birthParam) "
+    		+ "and (:phoneParam is null or phone.phone=:phoneParam)")
+	Page<User> findPageByParams(@Param("userName")  String userName,@Param("emailF")  String emailF,
+			@Param("phoneParam")  String phoneParam,  @Param("birthParam")  Date birthParam,Pageable pageable);
     
 	
 }
