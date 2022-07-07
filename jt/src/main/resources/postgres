@@ -1,21 +1,7 @@
 
 #TRUNCATE users, phone_data,email_data;
 
-CREATE TABLE users (
-  id BIGINT SERIAL PRIMARY KEY,
-  name varchar(500) DEFAULT NULL,
-  date_of_birth date DEFAULT NULL,
-  password varchar(500) DEFAULT NULL,
- 
-) 
 
-CREATE TABLE public.user (
-  id  SERIAL PRIMARY KEY,
-  name varchar(500) DEFAULT NULL,
-  date_of_birth date DEFAULT NULL,
-  password varchar(500) DEFAULT NULL
- 
-) 
 
 
 CREATE TABLE users (
@@ -23,30 +9,39 @@ CREATE TABLE users (
   name varchar(500) DEFAULT NULL,
   date_of_birth date DEFAULT NULL,
   password varchar(500) DEFAULT NULL 
-) 
+);
 
 CREATE TABLE email_data (
   id  SERIAL PRIMARY KEY,
   user_id BIGINT,
   email varchar(200) DEFAULT NULL
-) 
+) ;
 
 CREATE TABLE phone_data (
-   id  SERIAL PRIMARY KEY,
-   user_id BIGINT,
+  id  SERIAL PRIMARY KEY,
+  user_id BIGINT,
   phone varchar(13) DEFAULT NULL
  
-) 
+) ;
 
 CREATE TABLE account (
-   id  SERIAL PRIMARY KEY,
+  id  SERIAL PRIMARY KEY,
   user_id BIGINT,
   balance decimal(10,2) DEFAULT NULL
  
-) 
+) ;
 
 
+GRANT ALL PRIVILEGES ON TABLE users TO sanek;
 
+GRANT ALL PRIVILEGES ON TABLE email_data TO sanek;
+
+GRANT ALL PRIVILEGES ON TABLE phone_data TO sanek;
+
+GRANT ALL PRIVILEGES ON TABLE account TO sanek;
+
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO sanek;
 
 
 BIGINT
@@ -66,13 +61,6 @@ CREATE TABLE email_data (
 ) 
 
 
-GRANT ALL PRIVILEGES ON TABLE users TO sanek;
-
-GRANT ALL PRIVILEGES ON TABLE email_data TO sanek;
-
-GRANT ALL PRIVILEGES ON TABLE phone_data TO sanek;
-
-GRANT ALL PRIVILEGES ON TABLE account TO sanek;
 
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO sanek;
 

@@ -26,7 +26,7 @@ public class CreateUsers {
 		
 		userService.createUser("michael1", "12345", testDate, new String[] {"70001111111"}, new String[] {"michael1@mail.ru"},  BigDecimal.valueOf(100));
 		
-		userService.createUser("michael2", "12345", testDate, new String[] {"70001111112"}, new String[] {"michael2@mail.ru","michael21@mail.ru"},  BigDecimal.valueOf(100));
+		userService.createUser("michael2", "12345", testDate, new String[] {"70001111112"}, new String[] {"michael22@mail.ru","michael21@mail.ru"},  BigDecimal.valueOf(100));
 		
 		userService.createUser("michael3", "12345", testDate, new String[] {"70001111113"}, new String[] {"michael3@mail.ru"},  BigDecimal.valueOf(100));
 		
