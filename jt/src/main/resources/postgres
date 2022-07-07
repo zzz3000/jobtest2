@@ -74,4 +74,11 @@ GRANT ALL PRIVILEGES ON TABLE phone_data TO sanek;
 
 GRANT ALL PRIVILEGES ON TABLE account TO sanek;
 
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO sanek;
+
+grant select on cities_id_seq to www;
+
+
+email_data_id_seq
+
 

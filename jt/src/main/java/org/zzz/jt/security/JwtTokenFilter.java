@@ -25,7 +25,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	public static final String AUTH_HEADER ="Authorization";
 	
-	private final JwtTokenUtil jwtTokenUtil;
+	private JwtTokenUtil jwtTokenUtil;
 
 	
 	private final UserRepository userRepo;
@@ -56,7 +56,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			return;
 		}
 
-		User user = userRepo.getById(jwtTokenUtil.getUsername(token));
+		int userId = jwtTokenUtil.getUsername(token);
+		User user = userRepo.getById(userId);
 		
 		//User user = userRepo.getByName(jwtTokenUtil.getUsername(token)) .orElse(null);
 		
@@ -70,5 +71,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		chain.doFilter(request, response);
 	}
+
+	public JwtTokenUtil getJwtTokenUtil() {
+		return jwtTokenUtil;
+	}
+
+	public void setJwtTokenUtil(JwtTokenUtil jwtTokenUtil) {
+		this.jwtTokenUtil = jwtTokenUtil;
+	}
+	
+	
 
 }

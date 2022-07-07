@@ -1,9 +1,11 @@
 package org.zzz.jt.data;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
@@ -41,8 +45,11 @@ public class User { // implements UserDetails
     private Set<UserPhone> phones;
 	
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user",fetch = FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
     private Account account;
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -118,13 +125,14 @@ public class User { // implements UserDetails
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof User) ){
 			return false;
+		}		
 		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (getId() == null) {
+			if (other.getId()!= null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
 	}

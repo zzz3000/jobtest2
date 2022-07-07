@@ -20,9 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.zzz.jt.data.User;
-import org.zzz.jt.data.UserService;
 import org.zzz.jt.data.UserWithDetails;
 import org.zzz.jt.repository.UserRepository;
+import org.zzz.jt.service.UserService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

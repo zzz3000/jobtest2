@@ -5,19 +5,16 @@ package org.zzz.jt;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zzz.jt.data.User;
-import org.zzz.jt.data.UserService;
+import org.zzz.jt.service.UserService;
 
 @SpringBootTest
-public class TestUserFindPageByParams {
+public class UserServiceFindTest {
 	
 	
 

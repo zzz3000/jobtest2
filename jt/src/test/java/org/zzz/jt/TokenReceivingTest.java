@@ -20,10 +20,9 @@ import org.zzz.jt.security.JwtTokenFilter;
 import static org.hamcrest.CoreMatchers.is;
 
 
-//@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 //@Disabled
-public class TestRestApi {
+public class TokenReceivingTest {
 	
 	
 	@LocalServerPort
