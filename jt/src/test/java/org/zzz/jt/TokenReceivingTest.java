@@ -68,7 +68,7 @@ public class TokenReceivingTest {
 	
 	
 	@Test
-	@Disabled
+	//@Disabled
 	public void testInvalidToken() throws Exception {
 
 		String token = getToken();

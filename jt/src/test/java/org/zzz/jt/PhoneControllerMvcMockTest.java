@@ -47,7 +47,7 @@ public class PhoneControllerMvcMockTest {
 		jwtTokenFilter.setJwtTokenUtil(jwtTokenUtil);
 		
 		
-		String firstPhone = "12345678900" ;//"11111111111";79207865432
+		String firstPhone = "12345678900" ;
 		mockMvc.perform(
 				post("/phone/create").param("phone", firstPhone).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
