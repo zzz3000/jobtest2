@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +22,6 @@ import org.zzz.jt.data.User;
 import org.zzz.jt.data.UserEmail;
 import org.zzz.jt.data.UserPhone;
 import org.zzz.jt.data.UserWithDetails;
-import org.zzz.jt.repository.EmailReposotory;
 import org.zzz.jt.repository.UserRepository;
 import org.zzz.jt.security.CustomException;
 import org.zzz.jt.security.JwtTokenUtil;
@@ -30,10 +30,8 @@ import org.zzz.jt.security.JwtTokenUtil;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;	
+	UserRepository userRepository;		
 	
-	@Autowired
-	EmailReposotory emailRepository;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -42,19 +40,17 @@ public class UserService {
 	private JwtTokenUtil jwtTokenProvider;
 	
 
-	public String signin(String username, String password) {
+	public String signin(String emailOrPhone, String password) {
 		try {
-			User u = getByEmailOrPhone(username);
+			User u = getByEmailOrPhone(emailOrPhone);
 			if(u==null) {
-				throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+				throw new CustomException("User not found by email or phone", HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			UserWithDetails userWDetails = new UserWithDetails(u);
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userWDetails.getUsername(), password));
 			return jwtTokenProvider.createToken(u.getId(), null);
 		} catch (AuthenticationException e) {
-			//throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
-			//e.printStackTrace();
-			throw e;
+			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);		
 		}
 	}
 	
@@ -103,8 +99,7 @@ public class UserService {
 			uEmail.setEmail(email);
 			uEmail.setUser(u);
 			u.getEmails().add(uEmail);
-		}
-		
+		}		
 		
 		userRepository.save(u);
 		return u.getId();
@@ -142,7 +137,8 @@ public class UserService {
 	
 	@Transactional
 	public List<User> findByParams(String userName,  String email, String phone, Date birthParam, int pageNum, int pageSize){		
-		Pageable p = PageRequest.of(pageNum, pageSize);		
+		Pageable p = PageRequest.of(pageNum, pageSize,Sort.by("id").ascending());	
+	
 		Page<User> page = userRepository.findPageByParams(userName, email,phone, birthParam, p);		
 		return page.getContent();		
 	}	

@@ -66,11 +66,7 @@ public class EmailControllerMvcMockTest {
 		assertThat("user not contain firstEmail",
 				user.getEmails().stream().map(em -> em.getEmail()).collect(Collectors.toList()), not(hasItem(firstEmail)));
 		
-		// mockMvc.perform(get("/email/create").param("email",
-		// "zzz@email.com").header(JwtTokenFilter.AUTH_HEADER , "Bearer "
-		// +"zzz")).andExpect(status().isOk());
-
-		System.out.println("zzz");
+		
 
 	}
 }

@@ -21,34 +21,21 @@ import org.zzz.jt.service.UserService;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	
+	public static final SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
 
 	@Autowired
 	private UserService userService;	
 	
-	
-	
-	
-
-	@PostMapping(path = "/deleteEmail")
-	public User deleteEmail(String email) {
-		return null;
-	}
-	
-	
-	
-	
 	@GetMapping(path = "/find")
-	public List<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize){
+	public List<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize) throws Exception{
+		
 		Date birthD = null;
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
-			birthD = sdf.parse(birthDate);
-		}catch (Exception e) {
-			//TODO
+		synchronized (sdf) {
+			birthD = sdf.parse(birthDate);	
 		}
 		
 		return userService.findByParams(name, email, phone, birthD, pageNum, pageSize);
-		
 	}
 	
 	@PostMapping("/signin")
@@ -58,7 +45,6 @@ public class UserController {
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		//System.out.println(request.getContentType());
 		String token =  userService.signin(username, password);
 		
 		response.addHeader(JwtTokenFilter.AUTH_HEADER, token);
@@ -66,11 +52,10 @@ public class UserController {
 		return token;
 	}
 	
-	@RequestMapping(value = "/signin1", method = RequestMethod.POST)
+	@PostMapping("/signin1")
 	public String process(@RequestBody Map<String, Object> payload) throws Exception {
 
 		String username = (String) payload.get("username");
-
 		String password = (String) payload.get("password");
 
 		String token = userService.signin(username, password);

@@ -104,14 +104,6 @@ public class TokenReceivingTest {
 
 	}
 	
-	@Test
-	@Disabled
-	public void contextLoads() throws Exception {
-		
-		
-		//List<User> list = controller.findByName("mich4_second@mail.ru");
-		
-		//System.out.println(list);
-	}
+
 
 }
