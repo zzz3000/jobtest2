@@ -21,11 +21,7 @@ public class EmailController {
 	}
 	
 	
-	@GetMapping(path = "/create")
-	public boolean createGet(String email) throws Exception {
-		emailService.create(email);
-		return true;
-	}
+	
 
 	@PostMapping(path = "/update")
 	public boolean update(String oldEmail, String newEmail) throws Exception {

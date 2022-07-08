@@ -19,7 +19,7 @@ public class CreateUsers {
 	
 	
 	@Test
-	@Disabled
+	//@Disabled
 	public void createUsers() throws Exception{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
