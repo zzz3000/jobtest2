@@ -100,7 +100,6 @@ public class TokenReceivingTest {
 		User[]  users = result.getBody();
 		assertThat("users size = 5",users.length == 5);
 		
-		System.out.println(result);
 
 	}
 	

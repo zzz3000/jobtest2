@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +32,10 @@ public class UserController {
 	public List<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize) throws Exception{
 		
 		Date birthD = null;
-		synchronized (sdf) {
-			birthD = sdf.parse(birthDate);	
+		if(!StringUtils.isEmpty(birthD)) {
+			synchronized (sdf) {
+				birthD = sdf.parse(birthDate);	
+			}
 		}
 		
 		return userService.findByParams(name, email, phone, birthD, pageNum, pageSize);

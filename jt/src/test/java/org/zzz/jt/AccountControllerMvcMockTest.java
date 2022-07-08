@@ -18,7 +18,7 @@ import org.zzz.jt.security.JwtTokenUtil;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AccountControllerMVCTest {
+public class AccountControllerMvcMockTest {
 
 	
 	@Autowired
@@ -30,8 +30,7 @@ public class AccountControllerMVCTest {
 	
 	
 	@Test
-	@Disabled
-	public void test()throws Exception {
+	public void testTransfer()throws Exception {
 		
 		JwtTokenUtil jwtTokenUtil =mock(JwtTokenUtil.class);
 		
@@ -45,7 +44,7 @@ public class AccountControllerMVCTest {
 		
 		//jwtTokenFilter.;
 		
-		mockMvc.perform(get("/account/transfer?toUserId=4&value=10").header(JwtTokenFilter.AUTH_HEADER , "Bearer " +"zzz")).andExpect(status().isOk());
+		mockMvc.perform(post("/account/transfer").param("toUserId", "4").param("value", "10").header(JwtTokenFilter.AUTH_HEADER , "Bearer " +"zzz")).andExpect(status().isOk());
 		
 	}
 }

@@ -35,7 +35,7 @@ public class EmailController {
 
 	@PostMapping(path = "/delete")
 	public boolean delete(String email) throws Exception {
-		emailService.create(email);
+		emailService.delete(email);
 		return true;
 	}
 

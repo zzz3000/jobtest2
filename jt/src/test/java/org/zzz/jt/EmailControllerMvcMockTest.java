@@ -66,6 +66,15 @@ public class EmailControllerMvcMockTest {
 		assertThat("user not contain firstEmail",
 				user.getEmails().stream().map(em -> em.getEmail()).collect(Collectors.toList()), not(hasItem(firstEmail)));
 		
+		mockMvc.perform(
+				post("/email/delete").param("email", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				.andExpect(status().isOk());
+		
+		user = userService.getByIdEager(userId);
+		
+		assertThat("user not contain secondEmail",
+				user.getEmails().stream().map(em -> em.getEmail()).collect(Collectors.toList()), not(hasItem(secondEmail)));
+		
 		
 
 	}

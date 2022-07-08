@@ -12,7 +12,7 @@ grant all privileges on database mydb to sanek;
 
 CREATE TABLE users (
   id  SERIAL PRIMARY KEY,
-  name varchar(500) DEFAULT NULL,
+  name varchar(500) UNIQUE ,
   date_of_birth date DEFAULT NULL,
   password varchar(500) DEFAULT NULL 
 );
@@ -20,13 +20,13 @@ CREATE TABLE users (
 CREATE TABLE email_data (
   id  SERIAL PRIMARY KEY,
   user_id BIGINT,
-  email varchar(200) DEFAULT NULL
+  email varchar(200) UNIQUE
 ) ;
 
 CREATE TABLE phone_data (
   id  SERIAL PRIMARY KEY,
   user_id BIGINT,
-  phone varchar(13) DEFAULT NULL
+  phone varchar(13) UNIQUE
  
 ) ;
 
