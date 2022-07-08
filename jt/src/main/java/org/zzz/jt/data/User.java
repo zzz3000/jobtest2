@@ -20,7 +20,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-public class User { // implements UserDetails
+public class User { 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

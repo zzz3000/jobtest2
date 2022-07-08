@@ -1,13 +1,11 @@
 package org.zzz.jt.security;
 
 import java.io.IOException;
-import java.net.http.HttpHeaders;
 import java.util.List;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,8 +38,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		// Get authorization header and validate
-
-		// TODO
 		final String header = request.getHeader(AUTH_HEADER);
 
 		if (StringUtils.isEmpty(header) || !header.startsWith("Bearer ")) {
@@ -58,9 +54,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 		int userId = jwtTokenUtil.getUsername(token);
 		User user = userRepo.getById(userId);
-		
-		//User user = userRepo.getByName(jwtTokenUtil.getUsername(token)) .orElse(null);
-		
+				
 		UserDetails userDetails = new UserWithDetails(user);
 
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,

@@ -36,13 +36,6 @@ public class JwtTokenUtil {
 
 		Claims claims = Jwts.claims().setSubject(userId+"");
 		
-		/*
-		claims.put("auth", appUserRoles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority()))
-				.filter(Objects::nonNull).collect(Collectors.toList()));
-				*/
-		//TODO
-		//claims.put("auth", appUserRoles);
-
 		Date now = new Date();
 		Date validity = new Date(now.getTime() + validityInMilliseconds);
 
