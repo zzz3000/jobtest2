@@ -41,20 +41,21 @@ public class UserController {
 		return userService.findByParams(name, email, phone, birthD, pageNum, pageSize);
 	}
 	
+	//for browser signin
 	@PostMapping("/signin")
 	public String login(//
-			@RequestParam String username, //
+			@RequestParam String username,
 			@RequestParam String password,
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		String token =  userService.signin(username, password);
-		
-		response.addHeader(JwtTokenFilter.AUTH_HEADER, token);
-		
+		String token =  userService.signin(username, password);		
+		response.addHeader(JwtTokenFilter.AUTH_HEADER, token);		
 		return token;
 	}
 	
+	
+	//for JSON params request
 	@PostMapping("/signin1")
 	public String process(@RequestBody Map<String, Object> payload) throws Exception {
 
@@ -64,8 +65,6 @@ public class UserController {
 		String token = userService.signin(username, password);
 		
 		return token;
-		// response.addHeader("Authorization", token);
-
 	}
 	
 
