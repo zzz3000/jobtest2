@@ -1,4 +1,4 @@
-package org.zzz.jt;
+package org.zzz.jt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

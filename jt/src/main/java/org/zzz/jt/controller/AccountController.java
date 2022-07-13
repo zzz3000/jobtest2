@@ -1,4 +1,4 @@
-package org.zzz.jt;
+package org.zzz.jt.controller;
 
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
