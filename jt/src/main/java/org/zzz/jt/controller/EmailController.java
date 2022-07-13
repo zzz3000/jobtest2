@@ -1,11 +1,16 @@
 package org.zzz.jt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.zzz.jt.service.EmailService;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/email")
@@ -14,25 +19,25 @@ public class EmailController {
 	@Autowired
 	EmailService emailService;
 
-	@PostMapping(path = "/create")
-	public boolean create(String email) throws Exception {
+	//@PostMapping(path = "/create")
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> create(String email) throws Exception {
 		emailService.create(email);
-		return true;
+		return ok().build();
 	}
 	
-	
-	
 
-	@PostMapping(path = "/update")
-	public boolean update(String oldEmail, String newEmail) throws Exception {
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(String oldEmail, String newEmail) throws Exception {
 		emailService.update(oldEmail, newEmail);
-		return true;
+		return ok().build();
 	}
 
-	@PostMapping(path = "/delete")
-	public boolean delete(String email) throws Exception {
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(String email) throws Exception {
 		emailService.delete(email);
-		return true;
+		return ok().build();
 	}
 
 }

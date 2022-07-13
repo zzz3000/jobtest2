@@ -2,7 +2,9 @@ package org.zzz.jt;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -43,9 +45,9 @@ public class EmailControllerMvcMockTest {
 
 		jwtTokenFilter.setJwtTokenUtil(jwtTokenUtil);
 
-		String firstEmail = "zzz17@email.com";
+		String firstEmail = "zzz19@email.com";
 		mockMvc.perform(
-				post("/email/create").param("email", firstEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				post("/email").param("email", firstEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
 
 		User user = userService.getByIdEager(userId);
@@ -55,7 +57,7 @@ public class EmailControllerMvcMockTest {
 		
 		String secondEmail = "zzz18@email.com";
 		mockMvc.perform(
-				post("/email/update").param("oldEmail", firstEmail).param("newEmail", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				put("/email").param("oldEmail", firstEmail).param("newEmail", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
 		
 		user = userService.getByIdEager(userId);
@@ -67,7 +69,7 @@ public class EmailControllerMvcMockTest {
 				user.getEmails().stream().map(em -> em.getEmail()).collect(Collectors.toList()), not(hasItem(firstEmail)));
 		
 		mockMvc.perform(
-				post("/email/delete").param("email", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				delete("/email").param("email", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
 		
 		user = userService.getByIdEager(userId);

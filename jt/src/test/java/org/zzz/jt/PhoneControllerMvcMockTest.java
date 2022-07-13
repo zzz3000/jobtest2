@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +50,7 @@ public class PhoneControllerMvcMockTest {
 		
 		String firstPhone = "12345678900" ;
 		mockMvc.perform(
-				post("/phone/create").param("phone", firstPhone).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				post("/phone").param("phone", firstPhone).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
 
 		User user = userService.getByIdEager(userId);
@@ -60,7 +61,7 @@ public class PhoneControllerMvcMockTest {
 		
 		
 		mockMvc.perform(
-				post("/phone/delete").param("phone", firstPhone).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				delete("/phone").param("phone", firstPhone).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
 		
 		user = userService.getByIdEager(userId);
