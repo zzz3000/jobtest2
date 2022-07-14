@@ -1,6 +1,9 @@
 package org.zzz.jt;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.List;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.zzz.jt.controller.PaginatedResponse;
 import org.zzz.jt.data.User;
 import org.zzz.jt.security.JwtTokenFilter;
 
@@ -94,15 +99,24 @@ public class TokenReceivingTest {
 		headers.add(JwtTokenFilter.AUTH_HEADER,"Bearer "+ token);
 		HttpEntity<String> request =  new HttpEntity<String>(null, headers);
 		
-		ResponseEntity<Page> result = restTemplate.exchange("http://localhost:" + port + "/users?name=mich&pageNum=0&pageSize=5",
-				HttpMethod.GET, request, Page.class);
+		
+		ParameterizedTypeReference<PaginatedResponse<User>> responseType = 
+				new ParameterizedTypeReference<PaginatedResponse<User>>() { };
+		
+				
+				
+		ResponseEntity<PaginatedResponse<User>> result 
+		= restTemplate.exchange("http://localhost:" + port + "/users?name=mich&pageNum=0&pageSize=5", HttpMethod.GET, request, responseType);
+				
+		//ResponseEntity<Page> result = restTemplate.exchange("http://localhost:" + port + "/users?name=mich&pageNum=0&pageSize=5",
+		//		HttpMethod.GET, request, Page.class);
 	
-		Page  users = result.getBody();
+		List<User>  users = result.getBody().getContent();
 		
-		
+		int totalPages = result.getBody().getTotalPages();
 		
 		System.out.println("zzz");
-		//assertThat("users size = 5",users.length == 5);
+		assertThat("users size = 5",users.size() == 5);
 		
 
 	}
