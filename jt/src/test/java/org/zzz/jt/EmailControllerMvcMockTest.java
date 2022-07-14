@@ -33,6 +33,32 @@ public class EmailControllerMvcMockTest {
 
 	@Autowired
 	JwtTokenFilter jwtTokenFilter;
+	
+	@Test
+	public void testErrorCRUD() throws Exception {
+		
+		int userId = 6;
+
+		JwtTokenUtil jwtTokenUtil = mock(JwtTokenUtil.class);
+		when(jwtTokenUtil.validateToken(Mockito.any())).thenReturn(true);
+		when(jwtTokenUtil.getUsername(Mockito.any())).thenReturn(userId);
+		
+		jwtTokenFilter.setJwtTokenUtil(jwtTokenUtil);
+		
+
+		String firstEmail = "nonexist@email.com";
+		
+
+		String secondEmail = "second@email.com";
+		
+		mockMvc.perform(
+				put("/email").param("oldEmail", firstEmail).param("newEmail", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
+				.andExpect(status().isOk());
+		
+
+		User user = userService.getByIdEager(userId);
+		
+	}
 
 	@Test
 	public void testCRUD() throws Exception {

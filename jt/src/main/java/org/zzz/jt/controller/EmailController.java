@@ -24,7 +24,7 @@ public class EmailController {
 	
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(String oldEmail, String newEmail) throws Exception {
+	public ResponseEntity<Void> update(String oldEmail, String newEmail) throws ApiException {
 		emailService.update(oldEmail, newEmail);
 		return ok().build();
 	}

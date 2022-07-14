@@ -18,19 +18,19 @@ public class PhoneController {
 	private PhoneService phoneService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	 public ResponseEntity<Void> create(String phone) throws Exception {
+	 public ResponseEntity<Void> create(String phone) {
 		phoneService.create(phone);
 		return ok().build();
 	}	
 
 	@RequestMapping(method = RequestMethod.PUT)
-	 public ResponseEntity<Void> update(String oldPhone, String newPhone) throws Exception {
+	 public ResponseEntity<Void> update(String oldPhone, String newPhone)  {
 		phoneService.update(oldPhone, newPhone);
 		return ok().build();
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	 public ResponseEntity<Void> delete(String phone) throws Exception {
+	 public ResponseEntity<Void> delete(String phone)  {
 		phoneService.delete(phone);
 		return ok().build();
 	}

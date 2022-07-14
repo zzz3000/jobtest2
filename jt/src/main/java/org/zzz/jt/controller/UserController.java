@@ -19,13 +19,17 @@ public class UserController {
 	private UserService userService;	
 	
 	@GetMapping(path = "/users")
-	public Page<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize) throws Exception{
+	public Page<User> findByParams(String name,String email, String phone, String birthDate,int pageNum, int pageSize) {
 		
 		Date birthD = null;
+		try {
 		if(!StringUtils.isEmpty(birthD)) {
 			synchronized (sdf) {
 				birthD = sdf.parse(birthDate);	
 			}
+		}
+		}catch (Exception e) {
+			throw new ApiException("Bad date format for " + birthDate);
 		}
 		
 		return userService.findByParams(name, email, phone, birthD, pageNum, pageSize);

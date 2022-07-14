@@ -32,7 +32,7 @@ public class LoginController {
 
 	// for JSON params request
 	@PostMapping("/login1")
-	public String process(@RequestBody Map<String, Object> payload) throws Exception {
+	public String process(@RequestBody Map<String, Object> payload) {
 
 		String username = (String) payload.get("username");
 		String password = (String) payload.get("password");

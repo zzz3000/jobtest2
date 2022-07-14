@@ -4,6 +4,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zzz.jt.controller.ApiException;
 import org.zzz.jt.data.User;
 import org.zzz.jt.data.UserPhone;
 import org.zzz.jt.repository.PhoneRepository;
@@ -31,31 +32,31 @@ public class PhoneService {
 	}
 	
 	@Transactional
-	public void delete(String existingPhone) throws Exception {
+	public void delete(String existingPhone)  {
 		Optional<UserPhone>  phoneOpt = phoneRepository.getByPhone(existingPhone);
 		
 		if(!phoneOpt.isPresent()) {
-			throw new Exception("email=" + existingPhone +" not found" );
+			throw new ApiException("email=" + existingPhone +" not found" );
 		}
 		UserPhone phoneObj = phoneOpt.get();
 		User currentUser = userService.getCurrentUser();
 		
 		if(phoneObj.getUser() ==null || !phoneObj.getUser().equals(currentUser)) {
-			throw new Exception("you are not owner of email=" + existingPhone );
+			throw new ApiException("you are not owner of email=" + existingPhone );
 		}
 		
 		phoneRepository.delete(phoneObj);
 	}
 	
 	@Transactional
-	public void create(String newPhone) throws Exception {		
+	public void create(String newPhone)  {		
 		
 		if(!checkPhoneFormat(newPhone)) {
-			throw new Exception("wrong phone format for " + newPhone);
+			throw new ApiException("wrong phone format for " + newPhone);
 		}
 		
 		if(phoneRepository.getByPhone(newPhone).isPresent()) {
-			throw new Exception("phone=" + newPhone +" already exists" );
+			throw new ApiException("phone=" + newPhone +" already exists" );
 		}
 		
 		User user = userService.getCurrentUser();		
@@ -69,10 +70,10 @@ public class PhoneService {
 	}	
 	
 	@Transactional
-	public void update(String oldPhone,String newPhone) throws Exception {
+	public void update(String oldPhone,String newPhone)  {
 		
 		if(!checkPhoneFormat(newPhone)) {
-			throw new Exception("wrong phone format for " + newPhone);
+			throw new ApiException("wrong phone format for " + newPhone);
 		}
 		
 		User currentUser = userService.getCurrentUser();
@@ -80,18 +81,18 @@ public class PhoneService {
 		
 		//check for oldEmail exists
 		if(oldPhoneOpt.isEmpty()) {
-			throw new Exception("email=" + oldPhone +" not found");
+			throw new ApiException("email=" + oldPhone +" not found");
 		}
 
 		UserPhone oldPhoneObj = oldPhoneOpt.get();
 		//check for old email owned by current user
 		if(oldPhoneObj.getUser()==null || !oldPhoneObj.getUser().equals(currentUser)) {
-			throw new Exception("you are not owner of email=" + oldPhone );
+			throw new ApiException("you are not owner of email=" + oldPhone );
 		}
 		
 		//check newEmail is not exists
 		if(phoneRepository.getByPhone(newPhone).isPresent()) {
-			throw new Exception("email=" + newPhone +" already exists" );
+			throw new ApiException("email=" + newPhone +" already exists" );
 		}
 		oldPhoneObj.setPhone(newPhone);
 		phoneRepository.save(oldPhoneObj);
