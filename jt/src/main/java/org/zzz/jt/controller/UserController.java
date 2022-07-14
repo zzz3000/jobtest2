@@ -11,7 +11,6 @@ import org.zzz.jt.data.User;
 import org.zzz.jt.service.UserService;
 
 @RestController
-//@RequestMapping("/users")
 public class UserController {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");

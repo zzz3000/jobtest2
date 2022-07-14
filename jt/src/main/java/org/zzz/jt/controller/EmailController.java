@@ -16,8 +16,6 @@ public class EmailController {
 	@Autowired
 	private EmailService emailService;
 
-	//@PostMapping(path = "/create")
-	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> create(String email) throws Exception {
 		emailService.create(email);
