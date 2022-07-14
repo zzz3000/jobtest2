@@ -13,15 +13,14 @@ import org.zzz.jt.repository.UserRepository;
 @Service
 public class PhoneService {
 
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
-	UserService userService;
+	private UserRepository userRepository;	
 	
 	@Autowired
-	UserRepository userRepository;	
-	
-	@Autowired
-	PhoneRepository phoneRepository;
+	private PhoneRepository phoneRepository;
 	
 	public boolean checkPhoneFormat(String newPhone) {		
 		if(newPhone==null || newPhone.length()!=11) {	

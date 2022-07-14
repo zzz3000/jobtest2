@@ -15,7 +15,7 @@ import org.zzz.jt.service.PhoneService;
 public class PhoneController {
 	
 	@Autowired
-	PhoneService phoneService;
+	private PhoneService phoneService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	 public ResponseEntity<Void> create(String phone) throws Exception {

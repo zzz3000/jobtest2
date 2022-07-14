@@ -14,18 +14,18 @@ import org.zzz.jt.repository.UserRepository;
 @Service
 public class AccountService {
 	
-	public static final BigDecimal INC_PROCENT = new BigDecimal(0.1);
+	private static final BigDecimal INC_PROCENT = new BigDecimal(0.1);
 	
-	public static final BigDecimal MAX_VALUE = new BigDecimal(207);
-	
-	@Autowired
-	AccountRepository accountRepository;
+	private static final BigDecimal MAX_VALUE = new BigDecimal(207);
 	
 	@Autowired
-	UserRepository userRepository;
+	private AccountRepository accountRepository;
 	
 	@Autowired
-	UserService userService;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	@Scheduled(cron = "*/30 * * * * *")

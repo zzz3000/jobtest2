@@ -30,8 +30,7 @@ import org.zzz.jt.security.JwtTokenUtil;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;		
-	
+	private UserRepository userRepository;		
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -123,10 +122,10 @@ public class UserService {
 	@Transactional
 	public User getByEmailOrPhone(String name) {			
 		User u = null;
-		List<User> list = findByParams(null, name, null, null, 0, 5);
+		List<User> list = findByParams(null, name, null, null, 0, 5).getContent();
 		
 		if(list.size()==0) {
-			list = findByParams(null, null, name, null, 0, 5);
+			list = findByParams(null, null, name, null, 0, 5).getContent();
 		}		
 		if(list.size()>0) {
 			u = list.get(0);
@@ -136,11 +135,12 @@ public class UserService {
 	
 	
 	@Transactional
-	public List<User> findByParams(String userName,  String email, String phone, Date birthParam, int pageNum, int pageSize){		
+	public Page<User> findByParams(String userName,  String email, String phone, Date birthParam, int pageNum, int pageSize){		
 		Pageable p = PageRequest.of(pageNum, pageSize,Sort.by("id").ascending());	
 	
 		Page<User> page = userRepository.findPageByParams(userName, email,phone, birthParam, p);		
-		return page.getContent();		
+		
+		return page;	
 	}	
 	
 	

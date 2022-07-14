@@ -22,7 +22,6 @@ public class Account {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore

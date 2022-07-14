@@ -59,8 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}).and();
 
 		// Set permissions on endpoints
-		http.authorizeRequests().antMatchers("/users/signin").permitAll()//
-				.antMatchers("/users/signin1").permitAll()//
+		http.authorizeRequests().antMatchers("/auth/login").permitAll()//
+				.antMatchers("/auth/login1").permitAll()//
 				.anyRequest().authenticated().and().httpBasic();
 
 		// Add JWT token filter
@@ -69,7 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		// return new BCryptPasswordEncoder();
-		return NoOpPasswordEncoder.getInstance();
+		return NoOpPasswordEncoder.getInstance(); //new BCryptPasswordEncoder();
 	}
 }

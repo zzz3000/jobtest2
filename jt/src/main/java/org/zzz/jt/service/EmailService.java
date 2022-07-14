@@ -13,13 +13,13 @@ import org.zzz.jt.repository.UserRepository;
 public class EmailService {
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	UserRepository userRepository;	
+	private UserRepository userRepository;	
 	
 	@Autowired
-	EmailReposotory emailRepository;
+	private EmailReposotory emailRepository;
 	
 	
 	@Transactional
