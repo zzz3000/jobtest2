@@ -35,8 +35,7 @@ public class EmailService {
 		
 		if(emailObj.getUser() ==null || !emailObj.getUser().equals(currentUser)) {
 			throw new ApiException("you are not owner of email=" + existingEmail );
-		}
-		
+		}		
 		emailRepository.delete(emailObj);
 	}
 	
