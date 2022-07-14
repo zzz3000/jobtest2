@@ -21,16 +21,16 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	Integer id;
+	private Integer id;
 	
 	@Column(name = "name")
-	String name;
+	private String name;
 	
 	@Column(name = "date_of_birth")
-	Date dateOfBirth;
+	private Date dateOfBirth;
 	
 	@Column(name = "password")
-	String password;
+	private String password;
 	
 	@OneToMany(mappedBy="user")
 	@Cascade({CascadeType.ALL})
@@ -38,13 +38,11 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	@Cascade({CascadeType.ALL})
-    private Set<UserPhone> phones;
-	
+    private Set<UserPhone> phones;	
 	
 	@OneToOne(mappedBy="user",fetch = FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
-    private Account account;
-	
+    private Account account;	
 	
 
 	public Integer getId() {

@@ -17,26 +17,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "email_data")
 public class UserEmail {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	Integer id;	
-	
-	
+	private Integer id;	
 	
 	@Column(name = "email")
-	String email;	
-	
-	
+	private String email;	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
-	User user;
-	
-	
-	
+	private User user;	
 
 	public Integer getId() {
 		return id;

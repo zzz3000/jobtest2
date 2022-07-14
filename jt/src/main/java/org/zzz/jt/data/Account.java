@@ -20,16 +20,16 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	Integer id;
+	private Integer id;
 
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
-	User user;
+	private User user;
 	
 	@Column(name = "balance")
-	BigDecimal balance;
+	private BigDecimal balance;
 
 	public Integer getId() {
 		return id;

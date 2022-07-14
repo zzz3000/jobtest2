@@ -19,48 +19,39 @@ public class UserPhone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	Integer id;	
-	
+	private Integer id;	
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
-	User user;
+	private User user;
 	
-
 	@Column(name = "phone")
-	String phone;
-
+	private String phone;
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public User getUser() {
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	public String getPhone() {
 		return phone;
 	}
 
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -69,7 +60,6 @@ public class UserPhone {
 		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
