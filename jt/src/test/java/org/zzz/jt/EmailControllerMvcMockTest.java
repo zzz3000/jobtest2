@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.zzz.jt.data.User;
 import org.zzz.jt.security.JwtTokenFilter;
 import org.zzz.jt.security.JwtTokenUtil;
@@ -51,10 +52,19 @@ public class EmailControllerMvcMockTest {
 
 		String secondEmail = "second@email.com";
 		
+		ResultActions ra = mockMvc.perform(
+				put("/email").param("oldEmail", firstEmail).param("newEmail", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"));
+				
+		ra.andExpect(status().is5xxServerError());
+		
+		
+		ra.andExpect(status().is4xxClientError());
+		
+		/*
 		mockMvc.perform(
 				put("/email").param("oldEmail", firstEmail).param("newEmail", secondEmail).header(JwtTokenFilter.AUTH_HEADER, "Bearer " + "zzz"))
 				.andExpect(status().isOk());
-		
+		*/
 
 		User user = userService.getByIdEager(userId);
 		
