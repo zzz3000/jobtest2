@@ -29,6 +29,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User { 
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
