@@ -14,8 +14,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+//@Data
+@NoArgsConstructor
 public class User { 
 
 	@Id
@@ -36,7 +47,7 @@ public class User {
 	@Cascade({CascadeType.ALL})
     private Set<UserEmail> emails;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",fetch = FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
     private Set<UserPhone> phones;	
 	
@@ -45,6 +56,7 @@ public class User {
     private Account account;	
 	
 
+	/*
 	public Integer getId() {
 		return id;
 	}
@@ -105,6 +117,15 @@ public class User {
 		this.account = account;
 	}
 
+	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", password=" + password + "]";
+	}
+	
+	*/
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,12 +151,6 @@ public class User {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", password=" + password + "]";
-	}
-	
 	
 	
 }

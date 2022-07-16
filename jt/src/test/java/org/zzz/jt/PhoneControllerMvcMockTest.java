@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.zzz.jt.data.User;
+import org.zzz.jt.data.UserPhone;
 import org.zzz.jt.security.JwtTokenFilter;
 import org.zzz.jt.security.JwtTokenUtil;
 import org.zzz.jt.service.UserService;
@@ -54,6 +55,9 @@ public class PhoneControllerMvcMockTest {
 				.andExpect(status().isOk());
 
 		User user = userService.getByIdEager(userId);
+		
+		Set<UserPhone> phones = user.getPhones();
+		
 
 		assertThat("user contain new phone",
 				user.getPhones().stream().map(em -> em.getPhone()).collect(Collectors.toList()), hasItem(firstPhone));

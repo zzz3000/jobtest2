@@ -1,5 +1,7 @@
 package org.zzz.jt.data;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +14,18 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "email_data")
+//@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserEmail {
 
 	@Id
@@ -30,6 +41,7 @@ public class UserEmail {
 	@JsonIgnore
 	private User user;	
 
+	/*
 	public Integer getId() {
 		return id;
 	}
@@ -79,7 +91,7 @@ public class UserEmail {
 			return false;
 		return true;
 	}
-	
+	*/
 	
 	
 	

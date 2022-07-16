@@ -1,6 +1,9 @@
 package org.zzz.jt.data;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "account")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account {
 	
 	@Id
@@ -30,6 +39,7 @@ public class Account {
 	@Column(name = "balance")
 	private BigDecimal balance;
 
+	/*
 	public Integer getId() {
 		return id;
 	}
@@ -85,6 +95,6 @@ public class Account {
 		return true;
 	}
 	
-	
+	*/
 	
 }

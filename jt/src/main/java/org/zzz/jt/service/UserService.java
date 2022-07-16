@@ -64,6 +64,9 @@ public class UserService {
 		if(u.getAccount()!=null) {
 			u.getAccount().getBalance();
 		}
+		
+		//System.out.println(u.getEmails());
+		
 		u.getEmails().size();
 		u.getPhones().size();
 		return u;

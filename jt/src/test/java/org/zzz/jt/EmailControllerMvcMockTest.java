@@ -58,7 +58,7 @@ public class EmailControllerMvcMockTest {
 		ra.andExpect(status().is5xxServerError());
 		
 		
-		ra.andExpect(status().is4xxClientError());
+		//ra.andExpect(status().is4xxClientError());
 		
 		/*
 		mockMvc.perform(
